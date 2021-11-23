@@ -60,6 +60,17 @@ public class ICompanyService {
 		}
 	}
 
+	public Company getCompanyById(int companyId) throws CompanyNotFoundException {
+		LOG.info("getCompanyId");
+		Optional<Company> companyOpt = iCompanyRepository.findById(companyId);
+		if (companyOpt.isPresent()) {
+			LOG.info("company is available.");
+			return companyOpt.get();
+		} else {
+			LOG.info("company is NOT available.");
+			throw new CompanyNotFoundException(companyId + " this company is not found.");
+		}
+	}
 
 	public Company deleteCompanyById(int companyId) throws CompanyNotFoundException {
 		LOG.info("Service deleteCompanyById");
